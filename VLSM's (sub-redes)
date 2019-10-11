@@ -1,0 +1,39 @@
+SWITCH:
+
+CRIAR VLAN's:
+enable
+conf t
+vlan 2
+exit
+interface range fast 0/1, fast 1/1
+switchport mode access
+switchport access vlan 2
+no shutdown
+do wr
+exit
+
+CONFIGURAR NO ROUTER, VLAN's:
+enable
+conf t
+interface giga 2/1
+switchport mode trunk
+swithchport trunk allowed vlan 2, 3
+no shutdown
+exit
+
+ROUTER:
+
+interface giga 0/0.2
+encapsulation dot1q 2
+ip address 192.168.0.1 255.255.255.0
+no shutdown
+exit
+interface giga 0/0.3
+encapsulation dot1q 3
+ip address 192.168.1.1 255.255.255.0
+no shutdown 
+exit
+
+CONVERSAR ENTRE SWITCHS:
+switchport trunk allowed vlan add 8
+''''''''''''''''''''''''''''''''' 12
